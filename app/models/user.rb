@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
   attr_reader :password
   validates :email, :password_digest, :session_token, presence: true
@@ -11,7 +13,7 @@ class User < ActiveRecord::Base
   end
 
   def is_password?(password)
-    bcrypt_o = Bcrypt::Password.new(self.password_digest)
+    bcrypt_o = BCrypt::Password.new(self.password_digest)
     bcrypt_o.is_password?(password)
   end
 
