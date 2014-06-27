@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   attr_reader :password
   validates :email, :password_digest, :session_token, presence: true
   validates :email, uniqueness: true
+  validates :password, length: {minimum: 6, allow_nil: true}
 
   before_validation :ensure_session_token
 
@@ -15,8 +16,9 @@ class User < ActiveRecord::Base
   end
 
   def password=(password)
-    self.password_digest = BCrypt::Password.create(password)
-    self.save!
+    if password.present?
+      self.password_digest = BCrypt::Password.create(password)
+    end
   end
 
   def self.find_by_credentials(email, password)
@@ -36,5 +38,5 @@ class User < ActiveRecord::Base
     self.session_token = User.generate_session_token
     self.save!
   end
-  
+
 end
