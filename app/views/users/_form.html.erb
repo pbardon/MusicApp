@@ -1,0 +1,34 @@
+<% action_url = (action == :new) ? users_url : users_url(band) %>
+
+<form action = "<%= action_url %>" method= "POST">
+
+  <% if action == :edit  %>
+    <input type = "hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <input type = "hidden"
+         name = "authenticity_token"
+         value = "<%= form_authenticity_token %>">
+
+  <label for="user_username">Enter Email:</label>
+    <input
+      type = "text"
+      name = "user[email]"
+      id = "user_username"
+      value = "<%= @user.email %>">
+
+  <br>
+
+  <label for="user_password">Enter Password:</label>
+    <input
+      type = "password"
+      name = "user[password]"
+      id = "user_password">
+
+  <br>
+  <% if action == :new  %>
+    <input type = "submit" name= "Create Account">
+  <% else  %>
+    <input type = "submit" name= "Edit Account">
+  <% end  %>
+</form>

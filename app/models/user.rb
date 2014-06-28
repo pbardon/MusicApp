@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  email           :string(255)      not null
+#  password_digest :string(255)      not null
+#  session_token   :string(255)      not null
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 require 'bcrypt'
 
 class User < ActiveRecord::Base
@@ -25,7 +37,7 @@ class User < ActiveRecord::Base
 
   def self.find_by_credentials(email, password)
     u = User.find_by_email(email)
-    if u.is_password?(password)
+    if u && u.is_password?(password)
       return u
     else
       nil

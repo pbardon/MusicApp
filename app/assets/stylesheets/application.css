@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+.sign-in-up-button {
+  padding: 5px 3px;
+  border: 1px grey solid;
+  border-radius: 3px;
+  background: blue;
+  color: white;
+  text-decoration: none;
+}

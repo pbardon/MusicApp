@@ -11,7 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627164713) do
+ActiveRecord::Schema.define(version: 20140627204300) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "albums", force: true do |t|
+    t.string   "album_name",                      null: false
+    t.integer  "band_id",                         null: false
+    t.string   "album_cover_url"
+    t.boolean  "live",            default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "albums", ["band_id"], name: "index_albums_on_band_id", using: :btree
+  add_index "albums", ["live"], name: "index_albums_on_live", using: :btree
+
+  create_table "bands", force: true do |t|
+    t.string   "band_name",      null: false
+    t.string   "band_photo_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bands", ["band_name"], name: "index_bands_on_band_name", unique: true, using: :btree
+
+  create_table "tracks", force: true do |t|
+    t.string   "track_name",                 null: false
+    t.text     "lyrics"
+    t.integer  "album_id",                   null: false
+    t.boolean  "bonus",      default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tracks", ["album_id"], name: "index_tracks_on_album_id", using: :btree
+  add_index "tracks", ["track_name"], name: "index_tracks_on_track_name", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",           null: false
@@ -21,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140627164713) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["session_token"], name: "index_users_on_session_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["session_token"], name: "index_users_on_session_token", using: :btree
 
 end

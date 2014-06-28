@@ -8,9 +8,17 @@ class SessionsController < ApplicationController
   end
 
   def create
-    log_in_user!
+    @user = (User.find_by_credentials(session_params[:email],
+                                          session_params[:password]))
 
-    redirect_to user_url(@user)
+    if @user.nil?
+      @user = User.new(email: session_params[:email])
+      flash.now[:errors] = "Bad login info"
+      render 'new'
+    else
+      log_in_user!(@user)
+      redirect_to user_url(current_user)
+    end
   end
 
   def destroy
