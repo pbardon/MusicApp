@@ -1,1 +1,4 @@
 <%= render @band %>
+
+<%= link_to "Create New Album", new_band_album_url(@band) %>
+<%= link_to "Create New Track", new_album_track_url(@band.albums.first ? @band.albums.first.id : "1") %>

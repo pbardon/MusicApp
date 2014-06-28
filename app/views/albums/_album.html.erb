@@ -1,5 +1,18 @@
 <ul>
-  <li> <%= album.album_name %>  </li>
+  <li>
+    <ul>
+      <li> <%= album.album_name %>  </li>
+      <li>
+        <% album.tracks.each do |track| %>
+          <%= link_to "Tracks", track_url(track) %>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to "Band", band_url(album.band_id) %>
+      </li>
+    </ul>
+
+</li>
 </ul>
 
 

@@ -1,0 +1,14 @@
+<ul>
+  <li>
+    <ul>
+      <li> <%= track.track_name %>  </li>
+      <li>
+          <%= link_to "Album", album_url(track.album_id) %>
+      </li>
+      <li>
+        <%= link_to "Band", band_url(track.album.band_id) %>
+      </li>
+    </ul>
+
+</li>
+</ul>

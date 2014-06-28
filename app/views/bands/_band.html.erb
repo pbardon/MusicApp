@@ -1,3 +1,9 @@
 <ul>
-  <li><span> <%= band.band_name %> <%= button_to "Delete Band", band_url(band), method: :delete %></span> </li>
+  <li><%= band.band_name %> <%= button_to "Delete Band", band_url(band), method: :delete %> </li>
+  <% band.albums.each do |album|  %>
+    <%= link_to "Albums", album_url(band, album) %>
+    <% album.tracks.each do |track| %>
+      <%= link_to "Tracks", album_tracks_url(album) %>
+    <% end  %>
+  <% end  %>
 </ul>

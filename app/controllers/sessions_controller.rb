@@ -13,11 +13,11 @@ class SessionsController < ApplicationController
 
     if @user.nil?
       @user = User.new(email: session_params[:email])
-      flash.now[:errors] = "Bad login info"
+      flash.now[:errors] = "Invalid login"
       render 'new'
     else
       log_in_user!(@user)
-      redirect_to user_url(current_user)
+      redirect_to bands_url
     end
   end
 
